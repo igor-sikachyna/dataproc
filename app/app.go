@@ -82,7 +82,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".minid")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".dataprocd")
 }
 
 // AppConfig returns the default app config.
