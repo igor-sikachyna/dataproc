@@ -14,17 +14,17 @@ func (gs *GenesisState) Validate() error {
 	}
 
 	unique := make(map[string]bool)
-	for _, indexedStoredGame := range gs.IndexedStoredGameList {
-		if length := len([]byte(indexedStoredGame.Index)); MaxIndexLength < length || length < 1 {
+	for _, indexedStoredCode := range gs.IndexedStoredCodeList {
+		if length := len([]byte(indexedStoredCode.Index)); MaxIndexLength < length || length < 1 {
 			return ErrIndexTooLong
 		}
-		if _, ok := unique[indexedStoredGame.Index]; ok {
+		if _, ok := unique[indexedStoredCode.Index]; ok {
 			return ErrDuplicateAddress
 		}
-		if err := indexedStoredGame.StoredGame.Validate(); err != nil {
+		if err := indexedStoredCode.StoredCode.Validate(); err != nil {
 			return err
 		}
-		unique[indexedStoredGame.Index] = true
+		unique[indexedStoredCode.Index] = true
 	}
 
 	return nil

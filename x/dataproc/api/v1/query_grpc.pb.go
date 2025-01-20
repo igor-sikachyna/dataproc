@@ -19,7 +19,6 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_GetGame_FullMethodName = "/igorsikachyna.dataproc.v1.Query/GetGame"
 	Query_GetCode_FullMethodName = "/igorsikachyna.dataproc.v1.Query/GetCode"
 )
 
@@ -27,8 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QueryClient interface {
-	// GetGame returns the game at the requested index.
-	GetGame(ctx context.Context, in *QueryGetGameRequest, opts ...grpc.CallOption) (*QueryGetGameResponse, error)
+	// GetCode returns the code at the requested index.
 	GetCode(ctx context.Context, in *QueryGetCodeRequest, opts ...grpc.CallOption) (*QueryGetCodeResponse, error)
 }
 
@@ -38,15 +36,6 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc.ClientConnInterface) QueryClient {
 	return &queryClient{cc}
-}
-
-func (c *queryClient) GetGame(ctx context.Context, in *QueryGetGameRequest, opts ...grpc.CallOption) (*QueryGetGameResponse, error) {
-	out := new(QueryGetGameResponse)
-	err := c.cc.Invoke(ctx, Query_GetGame_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *queryClient) GetCode(ctx context.Context, in *QueryGetCodeRequest, opts ...grpc.CallOption) (*QueryGetCodeResponse, error) {
@@ -62,8 +51,7 @@ func (c *queryClient) GetCode(ctx context.Context, in *QueryGetCodeRequest, opts
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
-	// GetGame returns the game at the requested index.
-	GetGame(context.Context, *QueryGetGameRequest) (*QueryGetGameResponse, error)
+	// GetCode returns the code at the requested index.
 	GetCode(context.Context, *QueryGetCodeRequest) (*QueryGetCodeResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
@@ -72,9 +60,6 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
-func (UnimplementedQueryServer) GetGame(context.Context, *QueryGetGameRequest) (*QueryGetGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetGame not implemented")
-}
 func (UnimplementedQueryServer) GetCode(context.Context, *QueryGetCodeRequest) (*QueryGetCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCode not implemented")
 }
@@ -89,24 +74,6 @@ type UnsafeQueryServer interface {
 
 func RegisterQueryServer(s grpc.ServiceRegistrar, srv QueryServer) {
 	s.RegisterService(&Query_ServiceDesc, srv)
-}
-
-func _Query_GetGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetGameRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).GetGame(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Query_GetGame_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).GetGame(ctx, req.(*QueryGetGameRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_GetCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -134,10 +101,6 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "igorsikachyna.dataproc.v1.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GetGame",
-			Handler:    _Query_GetGame_Handler,
-		},
 		{
 			MethodName: "GetCode",
 			Handler:    _Query_GetCode_Handler,

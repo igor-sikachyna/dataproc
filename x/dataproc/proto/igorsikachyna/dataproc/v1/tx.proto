@@ -12,28 +12,20 @@ import "cosmos_proto/cosmos.proto";
 service Msg {
   option (cosmos.msg.v1.service) = true;
 
-  // CreateGame create a game.
-  rpc CreateGame(MsgCreateGame)
-    returns (MsgCreateGameResponse);
-
   // SetCode set contract code.
   rpc SetCode(MsgSetCode)
     returns (MsgSetCodeResponse);
 }
 
-// MsgCreateGame defines the Msg/CreateGame request type.
-message MsgCreateGame {
-  option (cosmos.msg.v1.signer) = "creator";
+// message MsgCreateGame {
+//   option (cosmos.msg.v1.signer) = "creator";
 
-  // creator is the message sender.
-  string creator = 1;
-  string index = 2 ;
-  string black = 3 [(cosmos_proto.scalar) = "cosmos.AddressString"];
-  string red = 4 [(cosmos_proto.scalar) = "cosmos.AddressString"];
-}
-
-// MsgCreateGameResponse defines the Msg/CreateGame response type.
-message MsgCreateGameResponse {}
+//   // creator is the message sender.
+//   string creator = 1;
+//   string index = 2 ;
+//   string black = 3 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+//   string red = 4 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+// }
 
 // MsgSetCode defines the Msg/SetCode request type.
 message MsgSetCode {

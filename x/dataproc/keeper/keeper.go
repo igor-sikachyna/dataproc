@@ -22,7 +22,6 @@ type Keeper struct {
 	// state management
 	Schema      collections.Schema
 	Params      collections.Item[dataproc.Params]
-	StoredGames collections.Map[string, dataproc.StoredGame]
 	StoredCodes collections.Map[string, dataproc.StoredCode]
 }
 
@@ -38,9 +37,6 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		addressCodec: addressCodec,
 		authority:    authority,
 		Params:       collections.NewItem(sb, dataproc.ParamsKey, "params", codec.CollValue[dataproc.Params](cdc)),
-		StoredGames: collections.NewMap(sb,
-			dataproc.StoredGamesKey, "storedGames", collections.StringKey,
-			codec.CollValue[dataproc.StoredGame](cdc)),
 		StoredCodes: collections.NewMap(sb,
 			dataproc.StoredCodesKey, "storedCodes", collections.StringKey,
 			codec.CollValue[dataproc.StoredCode](cdc)),

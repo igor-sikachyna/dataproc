@@ -12,8 +12,8 @@ func (k *Keeper) InitGenesis(ctx context.Context, data *dataproc.GenesisState) e
 		return err
 	}
 
-	for _, indexedStoredGame := range data.IndexedStoredGameList {
-		if err := k.StoredGames.Set(ctx, indexedStoredGame.Index, indexedStoredGame.StoredGame); err != nil {
+	for _, indexedStoredCode := range data.IndexedStoredCodeList {
+		if err := k.StoredCodes.Set(ctx, indexedStoredCode.Index, indexedStoredCode.StoredCode); err != nil {
 			return err
 		}
 	}
@@ -28,11 +28,11 @@ func (k *Keeper) ExportGenesis(ctx context.Context) (*dataproc.GenesisState, err
 		return nil, err
 	}
 
-	var indexedStoredGames []dataproc.IndexedStoredGame
-	if err := k.StoredGames.Walk(ctx, nil, func(index string, storedGame dataproc.StoredGame) (bool, error) {
-		indexedStoredGames = append(indexedStoredGames, dataproc.IndexedStoredGame{
+	var indexedStoredCodes []dataproc.IndexedStoredCode
+	if err := k.StoredCodes.Walk(ctx, nil, func(index string, storedCode dataproc.StoredCode) (bool, error) {
+		indexedStoredCodes = append(indexedStoredCodes, dataproc.IndexedStoredCode{
 			Index:      index,
-			StoredGame: storedGame,
+			StoredCode: storedCode,
 		})
 		return false, nil
 	}); err != nil {
@@ -41,6 +41,6 @@ func (k *Keeper) ExportGenesis(ctx context.Context) (*dataproc.GenesisState, err
 
 	return &dataproc.GenesisState{
 		Params:                params,
-		IndexedStoredGameList: indexedStoredGames,
+		IndexedStoredCodeList: indexedStoredCodes,
 	}, nil
 }

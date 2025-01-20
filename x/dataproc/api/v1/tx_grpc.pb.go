@@ -19,16 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_CreateGame_FullMethodName = "/igorsikachyna.dataproc.v1.Msg/CreateGame"
-	Msg_SetCode_FullMethodName    = "/igorsikachyna.dataproc.v1.Msg/SetCode"
+	Msg_SetCode_FullMethodName = "/igorsikachyna.dataproc.v1.Msg/SetCode"
 )
 
 // MsgClient is the client API for Msg service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MsgClient interface {
-	// CreateGame create a game.
-	CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error)
 	// SetCode set contract code.
 	SetCode(ctx context.Context, in *MsgSetCode, opts ...grpc.CallOption) (*MsgSetCodeResponse, error)
 }
@@ -39,15 +36,6 @@ type msgClient struct {
 
 func NewMsgClient(cc grpc.ClientConnInterface) MsgClient {
 	return &msgClient{cc}
-}
-
-func (c *msgClient) CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error) {
-	out := new(MsgCreateGameResponse)
-	err := c.cc.Invoke(ctx, Msg_CreateGame_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *msgClient) SetCode(ctx context.Context, in *MsgSetCode, opts ...grpc.CallOption) (*MsgSetCodeResponse, error) {
@@ -63,8 +51,6 @@ func (c *msgClient) SetCode(ctx context.Context, in *MsgSetCode, opts ...grpc.Ca
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
 type MsgServer interface {
-	// CreateGame create a game.
-	CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error)
 	// SetCode set contract code.
 	SetCode(context.Context, *MsgSetCode) (*MsgSetCodeResponse, error)
 	mustEmbedUnimplementedMsgServer()
@@ -74,9 +60,6 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
-func (UnimplementedMsgServer) CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
-}
 func (UnimplementedMsgServer) SetCode(context.Context, *MsgSetCode) (*MsgSetCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetCode not implemented")
 }
@@ -91,24 +74,6 @@ type UnsafeMsgServer interface {
 
 func RegisterMsgServer(s grpc.ServiceRegistrar, srv MsgServer) {
 	s.RegisterService(&Msg_ServiceDesc, srv)
-}
-
-func _Msg_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgCreateGame)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).CreateGame(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Msg_CreateGame_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).CreateGame(ctx, req.(*MsgCreateGame))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Msg_SetCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -136,10 +101,6 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "igorsikachyna.dataproc.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "CreateGame",
-			Handler:    _Msg_CreateGame_Handler,
-		},
 		{
 			MethodName: "SetCode",
 			Handler:    _Msg_SetCode_Handler,

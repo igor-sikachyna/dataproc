@@ -12,14 +12,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			Service: dataprocv1.Query_ServiceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
-					RpcMethod: "GetGame",
-					Use:       "get-game index",
-					Short:     "Get the current value of the game at index",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-						{ProtoField: "index"},
-					},
-				},
-				{
 					RpcMethod: "GetCode",
 					Use:       "get-code index",
 					Short:     "Get the current value of the code at index",
@@ -32,16 +24,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 		Tx: &autocliv1.ServiceCommandDescriptor{
 			Service: dataprocv1.Msg_ServiceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
-				{
-					RpcMethod: "CreateGame",
-					Use:       "create index black red",
-					Short:     "Creates a new checkers game at the index for the black and red players",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-						{ProtoField: "index"},
-						{ProtoField: "black"},
-						{ProtoField: "red"},
-					},
-				},
 				{
 					RpcMethod: "SetCode",
 					Use:       "set index code",
