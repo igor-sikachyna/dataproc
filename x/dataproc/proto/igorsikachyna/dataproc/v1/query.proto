@@ -16,6 +16,12 @@ service Query {
     option (google.api.http).get =
       "/igorsikachyna/dataproc/v1/game/{index}";
   }
+
+  rpc GetCode(QueryGetCodeRequest) returns (QueryGetCodeResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get =
+      "/igorsikachyna/dataproc/v1/code/{index}";
+  }
 }
 
 // QueryGetGameRequest is the request type for the Query/GetGame RPC
@@ -30,4 +36,18 @@ message QueryGetGameRequest {
 message QueryGetGameResponse {
   // Game defines the game at the requested index.
   StoredGame Game = 1;
+}
+
+// QueryGetCodeRequest is the request type for the Query/GetCode RPC
+// method.
+message QueryGetCodeRequest {
+  // index defines the index of the code to retrieve.
+  string index = 1;
+}
+
+// QueryGetCodeResponse is the response type for the Query/GetCode RPC
+// method.
+message QueryGetCodeResponse {
+  // Code defines the code at the requested index.
+  StoredCode Code = 1;
 }

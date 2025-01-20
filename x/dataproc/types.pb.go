@@ -66,6 +66,7 @@ type GenesisState struct {
 	// params defines all the parameters of the module.
 	Params                Params              `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
 	IndexedStoredGameList []IndexedStoredGame `protobuf:"bytes,2,rep,name=indexedStoredGameList,proto3" json:"indexedStoredGameList"`
+	IndexedStoredCodeList []IndexedStoredCode `protobuf:"bytes,3,rep,name=indexedStoredCodeList,proto3" json:"indexedStoredCodeList"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -111,6 +112,13 @@ func (m *GenesisState) GetParams() Params {
 func (m *GenesisState) GetIndexedStoredGameList() []IndexedStoredGame {
 	if m != nil {
 		return m.IndexedStoredGameList
+	}
+	return nil
+}
+
+func (m *GenesisState) GetIndexedStoredCodeList() []IndexedStoredCode {
+	if m != nil {
+		return m.IndexedStoredCodeList
 	}
 	return nil
 }
@@ -235,11 +243,109 @@ func (m *IndexedStoredGame) GetStoredGame() StoredGame {
 	return StoredGame{}
 }
 
+type StoredCode struct {
+	Code string `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+}
+
+func (m *StoredCode) Reset()         { *m = StoredCode{} }
+func (m *StoredCode) String() string { return proto.CompactTextString(m) }
+func (*StoredCode) ProtoMessage()    {}
+func (*StoredCode) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8d50bbd0aef4c40b, []int{4}
+}
+func (m *StoredCode) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *StoredCode) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_StoredCode.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *StoredCode) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StoredCode.Merge(m, src)
+}
+func (m *StoredCode) XXX_Size() int {
+	return m.Size()
+}
+func (m *StoredCode) XXX_DiscardUnknown() {
+	xxx_messageInfo_StoredCode.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StoredCode proto.InternalMessageInfo
+
+func (m *StoredCode) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
+type IndexedStoredCode struct {
+	Index      string     `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	StoredCode StoredCode `protobuf:"bytes,2,opt,name=storedCode,proto3" json:"storedCode"`
+}
+
+func (m *IndexedStoredCode) Reset()         { *m = IndexedStoredCode{} }
+func (m *IndexedStoredCode) String() string { return proto.CompactTextString(m) }
+func (*IndexedStoredCode) ProtoMessage()    {}
+func (*IndexedStoredCode) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8d50bbd0aef4c40b, []int{5}
+}
+func (m *IndexedStoredCode) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *IndexedStoredCode) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_IndexedStoredCode.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *IndexedStoredCode) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IndexedStoredCode.Merge(m, src)
+}
+func (m *IndexedStoredCode) XXX_Size() int {
+	return m.Size()
+}
+func (m *IndexedStoredCode) XXX_DiscardUnknown() {
+	xxx_messageInfo_IndexedStoredCode.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IndexedStoredCode proto.InternalMessageInfo
+
+func (m *IndexedStoredCode) GetIndex() string {
+	if m != nil {
+		return m.Index
+	}
+	return ""
+}
+
+func (m *IndexedStoredCode) GetStoredCode() StoredCode {
+	if m != nil {
+		return m.StoredCode
+	}
+	return StoredCode{}
+}
+
 func init() {
 	proto.RegisterType((*Params)(nil), "igorsikachyna.dataproc.v1.Params")
 	proto.RegisterType((*GenesisState)(nil), "igorsikachyna.dataproc.v1.GenesisState")
 	proto.RegisterType((*StoredGame)(nil), "igorsikachyna.dataproc.v1.StoredGame")
 	proto.RegisterType((*IndexedStoredGame)(nil), "igorsikachyna.dataproc.v1.IndexedStoredGame")
+	proto.RegisterType((*StoredCode)(nil), "igorsikachyna.dataproc.v1.StoredCode")
+	proto.RegisterType((*IndexedStoredCode)(nil), "igorsikachyna.dataproc.v1.IndexedStoredCode")
 }
 
 func init() {
@@ -247,30 +353,33 @@ func init() {
 }
 
 var fileDescriptor_8d50bbd0aef4c40b = []byte{
-	// 369 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x52, 0xcd, 0x4e, 0xf2, 0x40,
-	0x14, 0x6d, 0xf9, 0xcb, 0xf7, 0x5d, 0xbe, 0xcd, 0x37, 0xc1, 0xa4, 0xb0, 0xa8, 0xd8, 0x84, 0x84,
-	0x18, 0x69, 0x03, 0x6e, 0x4d, 0x8c, 0x6c, 0x88, 0xd1, 0x85, 0x81, 0x9d, 0x1b, 0x33, 0xed, 0x4c,
-	0x4a, 0x83, 0xed, 0x34, 0x33, 0x03, 0x91, 0xb7, 0x30, 0x3e, 0x8b, 0x1b, 0xdf, 0x80, 0x25, 0x71,
-	0xe5, 0xca, 0x18, 0x78, 0x11, 0xd3, 0x19, 0xf0, 0x0f, 0xc5, 0xdd, 0xbd, 0x67, 0xce, 0x39, 0x73,
-	0xee, 0xcd, 0x85, 0x46, 0x14, 0x32, 0x2e, 0xa2, 0x11, 0x0e, 0x86, 0xd3, 0x04, 0x7b, 0x04, 0x4b,
-	0x9c, 0x72, 0x16, 0x78, 0x93, 0xb6, 0x27, 0xa7, 0x29, 0x15, 0x6e, 0xca, 0x99, 0x64, 0xa8, 0xfa,
-	0x89, 0xe6, 0xae, 0x69, 0xee, 0xa4, 0x5d, 0xab, 0x06, 0x4c, 0xc4, 0x4c, 0x5c, 0x29, 0xa2, 0xa7,
-	0x1b, 0xad, 0xaa, 0x55, 0x42, 0x16, 0x32, 0x8d, 0x67, 0x95, 0x46, 0x9d, 0x3f, 0x50, 0xba, 0xc0,
-	0x1c, 0xc7, 0xc2, 0x79, 0x30, 0xe1, 0x5f, 0x8f, 0x26, 0x54, 0x44, 0x62, 0x20, 0xb1, 0xa4, 0xe8,
-	0x18, 0x4a, 0xa9, 0x7a, 0xb2, 0xcc, 0xba, 0xd9, 0x2c, 0x77, 0xf6, 0xdc, 0x1f, 0xff, 0x75, 0xb5,
-	0x47, 0xb7, 0x30, 0x7b, 0xde, 0x35, 0xfa, 0x2b, 0x19, 0x1a, 0xc2, 0x4e, 0x94, 0x10, 0x7a, 0x43,
-	0xc9, 0x40, 0x32, 0x4e, 0x49, 0x0f, 0xc7, 0xf4, 0x3c, 0x12, 0xd2, 0xca, 0xd5, 0xf3, 0xcd, 0x72,
-	0xe7, 0x60, 0x8b, 0xdf, 0xe9, 0x57, 0xdd, 0xca, 0xfa, 0x7b, 0x43, 0xe7, 0xce, 0x04, 0x78, 0x87,
-	0x50, 0x05, 0x8a, 0x3e, 0xc3, 0x9c, 0xa8, 0xe0, 0x7f, 0xfb, 0xba, 0x41, 0x08, 0x0a, 0x72, 0xcc,
-	0x13, 0x2b, 0xa7, 0x40, 0x55, 0x23, 0x17, 0x8a, 0xfe, 0x35, 0x0e, 0x46, 0x56, 0x3e, 0x03, 0xbb,
-	0xd6, 0xe3, 0x7d, 0xab, 0xb2, 0xda, 0xda, 0x09, 0x21, 0x9c, 0x0a, 0x31, 0x90, 0x3c, 0x4a, 0xc2,
-	0xbe, 0xa6, 0xa1, 0x7d, 0xc8, 0x73, 0x4a, 0xac, 0xc2, 0x2f, 0xec, 0x8c, 0xe4, 0x4c, 0xe0, 0xff,
-	0xc6, 0x18, 0x59, 0x34, 0x35, 0xc2, 0x3a, 0x9a, 0x6a, 0xd0, 0x19, 0x80, 0x78, 0xe3, 0xa8, 0x80,
-	0xe5, 0x4e, 0x63, 0xcb, 0x7a, 0x36, 0xf6, 0xf2, 0x41, 0xde, 0x3d, 0x9a, 0x2d, 0x6c, 0x73, 0xbe,
-	0xb0, 0xcd, 0x97, 0x85, 0x6d, 0xde, 0x2e, 0x6d, 0x63, 0xbe, 0xb4, 0x8d, 0xa7, 0xa5, 0x6d, 0x5c,
-	0x3a, 0x61, 0x24, 0x87, 0x63, 0xdf, 0x0d, 0x58, 0xec, 0x65, 0xe6, 0xad, 0xcd, 0x5b, 0xf3, 0x4b,
-	0xea, 0x2e, 0x0e, 0x5f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x94, 0x51, 0x63, 0xe5, 0x8c, 0x02, 0x00,
+	// 417 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x53, 0xcf, 0x8a, 0xda, 0x40,
+	0x18, 0x4f, 0x8c, 0x4a, 0x3b, 0xf6, 0xd2, 0xc1, 0x42, 0xf4, 0x90, 0xda, 0x80, 0x20, 0xa5, 0x26,
+	0x68, 0xaf, 0x85, 0x52, 0x7b, 0x90, 0xd2, 0x1e, 0x8a, 0xde, 0x7a, 0x29, 0x93, 0xcc, 0x10, 0x83,
+	0x4d, 0x26, 0xcc, 0x8c, 0x52, 0xdf, 0xa2, 0xf4, 0x15, 0xf6, 0x15, 0xf6, 0x21, 0x3c, 0xca, 0x9e,
+	0xf6, 0xb4, 0x2c, 0xfa, 0x22, 0xcb, 0xcc, 0x24, 0xbb, 0xee, 0xc6, 0xd5, 0xdd, 0xdb, 0xf7, 0x7d,
+	0xf9, 0xfd, 0xcb, 0xf7, 0x31, 0xa0, 0x1b, 0x47, 0x94, 0xf1, 0x78, 0x8e, 0xc2, 0xd9, 0x2a, 0x45,
+	0x3e, 0x46, 0x02, 0x65, 0x8c, 0x86, 0xfe, 0x72, 0xe0, 0x8b, 0x55, 0x46, 0xb8, 0x97, 0x31, 0x2a,
+	0x28, 0x6c, 0xdd, 0x83, 0x79, 0x05, 0xcc, 0x5b, 0x0e, 0xda, 0xad, 0x90, 0xf2, 0x84, 0xf2, 0xdf,
+	0x0a, 0xe8, 0xeb, 0x46, 0xb3, 0xda, 0xcd, 0x88, 0x46, 0x54, 0xcf, 0x65, 0xa5, 0xa7, 0xee, 0x0b,
+	0x50, 0xff, 0x89, 0x18, 0x4a, 0xb8, 0x7b, 0x56, 0x01, 0xaf, 0xc6, 0x24, 0x25, 0x3c, 0xe6, 0x53,
+	0x81, 0x04, 0x81, 0x9f, 0x41, 0x3d, 0x53, 0x9f, 0x6c, 0xb3, 0x63, 0xf6, 0x1a, 0xc3, 0x77, 0xde,
+	0xa3, 0xbe, 0x9e, 0xd6, 0x18, 0x55, 0xd7, 0x57, 0x6f, 0x8d, 0x49, 0x4e, 0x83, 0x33, 0xf0, 0x26,
+	0x4e, 0x31, 0xf9, 0x4b, 0xf0, 0x54, 0x50, 0x46, 0xf0, 0x18, 0x25, 0xe4, 0x47, 0xcc, 0x85, 0x5d,
+	0xe9, 0x58, 0xbd, 0xc6, 0xf0, 0xc3, 0x11, 0xbd, 0x6f, 0x0f, 0x79, 0xb9, 0xf4, 0x61, 0xc1, 0x92,
+	0xd3, 0x57, 0x8a, 0xb5, 0x93, 0xf5, 0x3c, 0x27, 0xc9, 0x3b, 0xe8, 0x54, 0x08, 0xba, 0xff, 0x4d,
+	0x00, 0xee, 0xcc, 0x61, 0x13, 0xd4, 0x02, 0x8a, 0x18, 0x56, 0x2b, 0x7a, 0x39, 0xd1, 0x0d, 0x84,
+	0xa0, 0x2a, 0x16, 0x2c, 0xb5, 0x2b, 0x6a, 0xa8, 0x6a, 0xe8, 0x81, 0x5a, 0xf0, 0x07, 0x85, 0x73,
+	0xdb, 0x92, 0xc3, 0x91, 0x7d, 0x71, 0xde, 0x6f, 0xe6, 0xf7, 0xf9, 0x82, 0x31, 0x23, 0x9c, 0x4f,
+	0x05, 0x8b, 0xd3, 0x68, 0xa2, 0x61, 0xf0, 0x3d, 0xb0, 0x18, 0xc1, 0x76, 0xf5, 0x04, 0x5a, 0x82,
+	0xdc, 0x25, 0x78, 0x5d, 0x5a, 0x98, 0x8c, 0xa6, 0x7e, 0xa1, 0x88, 0xa6, 0x1a, 0xf8, 0x1d, 0x00,
+	0x7e, 0x8b, 0x51, 0x01, 0x1b, 0xc3, 0xee, 0x91, 0xf5, 0x94, 0x2e, 0xb0, 0x47, 0x77, 0x3b, 0xc5,
+	0x2e, 0xe4, 0x7a, 0xe4, 0x5f, 0x87, 0x14, 0x93, 0xdc, 0x4f, 0xd5, 0xa5, 0x64, 0x0a, 0x78, 0x22,
+	0x99, 0xc4, 0x3c, 0x39, 0xd9, 0xde, 0xc5, 0xf6, 0xe8, 0xa3, 0x4f, 0xeb, 0xad, 0x63, 0x6e, 0xb6,
+	0x8e, 0x79, 0xbd, 0x75, 0xcc, 0x7f, 0x3b, 0xc7, 0xd8, 0xec, 0x1c, 0xe3, 0x72, 0xe7, 0x18, 0xbf,
+	0xdc, 0x28, 0x16, 0xb3, 0x45, 0xe0, 0x85, 0x34, 0xf1, 0xa5, 0x78, 0xbf, 0xfc, 0xde, 0x82, 0xba,
+	0x7a, 0x1b, 0x1f, 0x6f, 0x02, 0x00, 0x00, 0xff, 0xff, 0xc9, 0x0b, 0x24, 0x7a, 0x90, 0x03, 0x00,
 	0x00,
 }
 
@@ -317,6 +426,20 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.IndexedStoredCodeList) > 0 {
+		for iNdEx := len(m.IndexedStoredCodeList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.IndexedStoredCodeList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintTypes(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
 	if len(m.IndexedStoredGameList) > 0 {
 		for iNdEx := len(m.IndexedStoredGameList) - 1; iNdEx >= 0; iNdEx-- {
 			{
@@ -435,6 +558,76 @@ func (m *IndexedStoredGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *StoredCode) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *StoredCode) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StoredCode) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Code) > 0 {
+		i -= len(m.Code)
+		copy(dAtA[i:], m.Code)
+		i = encodeVarintTypes(dAtA, i, uint64(len(m.Code)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *IndexedStoredCode) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *IndexedStoredCode) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *IndexedStoredCode) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.StoredCode.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTypes(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x12
+	if len(m.Index) > 0 {
+		i -= len(m.Index)
+		copy(dAtA[i:], m.Index)
+		i = encodeVarintTypes(dAtA, i, uint64(len(m.Index)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTypes(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTypes(v)
 	base := offset
@@ -465,6 +658,12 @@ func (m *GenesisState) Size() (n int) {
 	n += 1 + l + sovTypes(uint64(l))
 	if len(m.IndexedStoredGameList) > 0 {
 		for _, e := range m.IndexedStoredGameList {
+			l = e.Size()
+			n += 1 + l + sovTypes(uint64(l))
+		}
+	}
+	if len(m.IndexedStoredCodeList) > 0 {
+		for _, e := range m.IndexedStoredCodeList {
 			l = e.Size()
 			n += 1 + l + sovTypes(uint64(l))
 		}
@@ -508,6 +707,34 @@ func (m *IndexedStoredGame) Size() (n int) {
 		n += 1 + l + sovTypes(uint64(l))
 	}
 	l = m.StoredGame.Size()
+	n += 1 + l + sovTypes(uint64(l))
+	return n
+}
+
+func (m *StoredCode) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Code)
+	if l > 0 {
+		n += 1 + l + sovTypes(uint64(l))
+	}
+	return n
+}
+
+func (m *IndexedStoredCode) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Index)
+	if l > 0 {
+		n += 1 + l + sovTypes(uint64(l))
+	}
+	l = m.StoredCode.Size()
 	n += 1 + l + sovTypes(uint64(l))
 	return n
 }
@@ -661,6 +888,40 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 			}
 			m.IndexedStoredGameList = append(m.IndexedStoredGameList, IndexedStoredGame{})
 			if err := m.IndexedStoredGameList[len(m.IndexedStoredGameList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexedStoredCodeList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTypes
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTypes
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IndexedStoredCodeList = append(m.IndexedStoredCodeList, IndexedStoredCode{})
+			if err := m.IndexedStoredCodeList[len(m.IndexedStoredCodeList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -954,6 +1215,203 @@ func (m *IndexedStoredGame) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if err := m.StoredGame.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTypes(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *StoredCode) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTypes
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StoredCode: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StoredCode: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTypes
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTypes
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Code = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTypes(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *IndexedStoredCode) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTypes
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: IndexedStoredCode: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: IndexedStoredCode: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTypes
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTypes
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Index = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StoredCode", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTypes
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTypes
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.StoredCode.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

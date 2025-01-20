@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Msg_CreateGame_FullMethodName = "/igorsikachyna.dataproc.v1.Msg/CreateGame"
+	Msg_SetCode_FullMethodName    = "/igorsikachyna.dataproc.v1.Msg/SetCode"
 )
 
 // MsgClient is the client API for Msg service.
@@ -28,6 +29,8 @@ const (
 type MsgClient interface {
 	// CreateGame create a game.
 	CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error)
+	// SetCode set contract code.
+	SetCode(ctx context.Context, in *MsgSetCode, opts ...grpc.CallOption) (*MsgSetCodeResponse, error)
 }
 
 type msgClient struct {
@@ -47,12 +50,23 @@ func (c *msgClient) CreateGame(ctx context.Context, in *MsgCreateGame, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) SetCode(ctx context.Context, in *MsgSetCode, opts ...grpc.CallOption) (*MsgSetCodeResponse, error) {
+	out := new(MsgSetCodeResponse)
+	err := c.cc.Invoke(ctx, Msg_SetCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
 type MsgServer interface {
 	// CreateGame create a game.
 	CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error)
+	// SetCode set contract code.
+	SetCode(context.Context, *MsgSetCode) (*MsgSetCodeResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -62,6 +76,9 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
+}
+func (UnimplementedMsgServer) SetCode(context.Context, *MsgSetCode) (*MsgSetCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCode not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -94,6 +111,24 @@ func _Msg_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SetCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetCode)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetCode(ctx, req.(*MsgSetCode))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -104,6 +139,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateGame",
 			Handler:    _Msg_CreateGame_Handler,
+		},
+		{
+			MethodName: "SetCode",
+			Handler:    _Msg_SetCode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
