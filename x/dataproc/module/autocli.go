@@ -19,6 +19,14 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						{ProtoField: "index"},
 					},
 				},
+				{
+					RpcMethod: "GetCode",
+					Use:       "get-code index",
+					Short:     "Get the current value of the code at index",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "index"},
+					},
+				},
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
@@ -32,6 +40,15 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						{ProtoField: "index"},
 						{ProtoField: "black"},
 						{ProtoField: "red"},
+					},
+				},
+				{
+					RpcMethod: "SetCode",
+					Use:       "set index code",
+					Short:     "Creates a new code entry at the index",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "index"},
+						{ProtoField: "code"},
 					},
 				},
 			},

@@ -23,6 +23,7 @@ type Keeper struct {
 	Schema      collections.Schema
 	Params      collections.Item[dataproc.Params]
 	StoredGames collections.Map[string, dataproc.StoredGame]
+	StoredCodes collections.Map[string, dataproc.StoredCode]
 }
 
 // NewKeeper creates a new Keeper instance
@@ -40,6 +41,9 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		StoredGames: collections.NewMap(sb,
 			dataproc.StoredGamesKey, "storedGames", collections.StringKey,
 			codec.CollValue[dataproc.StoredGame](cdc)),
+		StoredCodes: collections.NewMap(sb,
+			dataproc.StoredCodesKey, "storedCodes", collections.StringKey,
+			codec.CollValue[dataproc.StoredCode](cdc)),
 	}
 
 	schema, err := sb.Build()

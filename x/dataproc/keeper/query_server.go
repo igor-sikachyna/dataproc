@@ -34,3 +34,16 @@ func (qs queryServer) GetGame(ctx context.Context, req *dataproc.QueryGetGameReq
 
 	return nil, status.Error(codes.Internal, err.Error())
 }
+
+// GetCode defines the handler for the Query/GetCode RPC method.
+func (qs queryServer) GetCode(ctx context.Context, req *dataproc.QueryGetCodeRequest) (*dataproc.QueryGetCodeResponse, error) {
+	code, err := qs.k.StoredCodes.Get(ctx, req.Index)
+	if err == nil {
+		return &dataproc.QueryGetCodeResponse{Code: &code}, nil
+	}
+	if errors.Is(err, collections.ErrNotFound) {
+		return &dataproc.QueryGetCodeResponse{Code: nil}, nil
+	}
+
+	return nil, status.Error(codes.Internal, err.Error())
+}

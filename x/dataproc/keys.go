@@ -8,4 +8,5 @@ const MaxIndexLength = 256
 var (
 	ParamsKey      = collections.NewPrefix("Params")
 	StoredGamesKey = collections.NewPrefix("StoredGames/value/")
+	StoredCodesKey = collections.NewPrefix("StoredCodes/value/")
 )

@@ -41,7 +41,8 @@ message MsgSetCode {
 
   // creator is the message sender.
   string creator = 1;
-  string code = 2;
+  string index = 2;
+  string code = 3;
 }
 
 // MsgSetCodeResponse defines the Msg/SetCode response type.
