@@ -32,3 +32,21 @@ install:
 
 init:
 	./scripts/init.sh
+
+##################
+###  Protobuf  ###
+##################
+
+proto-all:
+	@cd ./x/dataproc && make proto-all
+
+proto-gen:
+	@cd ./x/dataproc && make proto-gen
+
+proto-format:
+	@cd ./x/dataproc && make proto-format
+
+proto-lint:
+	@cd ./x/dataproc && make proto-lint
+
+.PHONY: proto-all proto-gen proto-format proto-lint
