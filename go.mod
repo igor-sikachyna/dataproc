@@ -1,8 +1,7 @@
 module github.com/igor-sikachyna/dataproc
 
 go 1.21
-
-toolchain go1.21.0
+toolchain go1.23.5
 
 replace (
 	// Fix upstream GHSA-h395-qcrw-5vmq vulnerability.
@@ -16,7 +15,7 @@ require (
 	cosmossdk.io/api v0.7.2
 	cosmossdk.io/client/v2 v2.0.0-beta.1
 	cosmossdk.io/collections v0.4.0
-	cosmossdk.io/core v0.11.0
+	cosmossdk.io/core v1.0.0
 	cosmossdk.io/depinject v1.0.0-alpha.4
 	cosmossdk.io/errors v1.0.0
 	cosmossdk.io/log v1.2.1
@@ -40,6 +39,7 @@ require (
 )
 
 require (
+	cosmossdk.io/schema v1.0.0 // indirect
 	cosmossdk.io/x/tx v0.12.0 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
 	github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 // indirect
