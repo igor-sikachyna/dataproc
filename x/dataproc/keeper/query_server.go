@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/igor-sikachyna/dataproc"
+	"github.com/igor-sikachyna/dataproc/x/dataproc"
 )
 
 var _ dataproc.QueryServer = queryServer{}

@@ -14,8 +14,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/igor-sikachyna/dataproc"
-	"github.com/igor-sikachyna/dataproc/keeper"
+	"github.com/igor-sikachyna/dataproc/x/dataproc"
+	"github.com/igor-sikachyna/dataproc/x/dataproc/keeper"
 )
 
 var (

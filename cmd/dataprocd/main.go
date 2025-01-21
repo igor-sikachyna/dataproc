@@ -6,9 +6,9 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/cosmosregistry/chain-minimal/app"
-	"github.com/cosmosregistry/chain-minimal/app/params"
-	"github.com/cosmosregistry/chain-minimal/cmd/dataprocd/cmd"
+	"github.com/igor-sikachyna/dataproc/app"
+	"github.com/igor-sikachyna/dataproc/app/params"
+	"github.com/igor-sikachyna/dataproc/cmd/dataprocd/cmd"
 )
 
 func main() {

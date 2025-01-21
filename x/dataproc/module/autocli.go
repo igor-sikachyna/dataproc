@@ -2,7 +2,7 @@ package module
 
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
-	dataprocv1 "github.com/igor-sikachyna/dataproc/api/v1"
+	dataprocv1 "github.com/igor-sikachyna/dataproc/x/dataproc/api/v1"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

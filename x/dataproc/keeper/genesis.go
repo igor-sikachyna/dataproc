@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/igor-sikachyna/dataproc"
+	"github.com/igor-sikachyna/dataproc/x/dataproc"
 )
 
 // InitGenesis initializes the module state from a genesis state.

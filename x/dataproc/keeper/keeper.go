@@ -8,7 +8,7 @@ import (
 	storetypes "cosmossdk.io/core/store"
 	"github.com/cosmos/cosmos-sdk/codec"
 
-	"github.com/igor-sikachyna/dataproc"
+	"github.com/igor-sikachyna/dataproc/x/dataproc"
 )
 
 type Keeper struct {

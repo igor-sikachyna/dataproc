@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"cosmossdk.io/collections"
-	"github.com/igor-sikachyna/dataproc"
+	"github.com/igor-sikachyna/dataproc/x/dataproc"
 )
 
 type msgServer struct {

@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	modulev1 "github.com/igor-sikachyna/dataproc/api/module/v1"
-	"github.com/igor-sikachyna/dataproc/keeper"
+	modulev1 "github.com/igor-sikachyna/dataproc/x/dataproc/api/module/v1"
+	"github.com/igor-sikachyna/dataproc/x/dataproc/keeper"
 )
 
 var _ appmodule.AppModule = AppModule{}
