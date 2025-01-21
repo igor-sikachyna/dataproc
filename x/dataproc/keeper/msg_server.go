@@ -43,5 +43,7 @@ func (ms msgServer) SetCode(ctx context.Context, msg *dataproc.MsgSetCode) (*dat
 	// 	return nil, err
 	// }
 
-	return &dataproc.MsgSetCodeResponse{}, nil
+	return &dataproc.MsgSetCodeResponse{
+		CodeIndex: msg.Index,
+	}, nil
 }

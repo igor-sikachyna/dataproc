@@ -50,3 +50,12 @@ proto-lint:
 	@cd ./x/dataproc && make proto-lint
 
 .PHONY: proto-all proto-gen proto-format proto-lint
+
+###################
+### Development ###
+###################
+
+mock-expected-keepers:
+	@mockgen -source=x/dataproc/types/expected_keepers.go \
+		-package testutil \
+		-destination=x/dataproc/testutil/expected_keepers_mocks.go

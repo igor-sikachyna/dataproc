@@ -38,4 +38,6 @@ message MsgSetCode {
 }
 
 // MsgSetCodeResponse defines the Msg/SetCode response type.
-message MsgSetCodeResponse {}
+message MsgSetCodeResponse {
+  string codeIndex = 1;
+}
