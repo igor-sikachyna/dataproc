@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
 
 	"cosmossdk.io/collections"
 	"github.com/igor-sikachyna/dataproc/x/dataproc"
@@ -29,6 +30,12 @@ func (ms msgServer) SetCode(ctx context.Context, msg *dataproc.MsgSetCode) (*dat
 		return nil, fmt.Errorf("code already exists at index: %s", msg.Index)
 	}
 
+	systemInfo, err := ms.k.GetSystemInfo(ctx)
+	if err != nil {
+		return nil, err
+	}
+	newIndex := strconv.FormatUint(systemInfo.NextId, 10)
+
 	// newBoard := rules.New()
 	// storedGame := dataproc.StoredGame{
 	// 	Board: newBoard.String(),
@@ -43,7 +50,11 @@ func (ms msgServer) SetCode(ctx context.Context, msg *dataproc.MsgSetCode) (*dat
 	// 	return nil, err
 	// }
 
+	ms.k.SetSystemInfo(ctx, dataproc.SystemInfo{
+		NextId: systemInfo.NextId + 1,
+	})
+
 	return &dataproc.MsgSetCodeResponse{
-		CodeIndex: msg.Index,
+		CodeIndex: newIndex,
 	}, nil
 }

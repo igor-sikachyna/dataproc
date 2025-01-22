@@ -37,6 +37,16 @@ func TestSetCode(t *testing.T) {
 	})
 	require.Nil(t, err)
 	require.EqualValues(t, dataproc.MsgSetCodeResponse{
+		CodeIndex: "0",
+	}, *createResponse)
+
+	createResponse, err = msgServer.SetCode(context, &dataproc.MsgSetCode{
+		Creator: alice,
+		Index:   "1",
+		Code:    "test",
+	})
+	require.Nil(t, err)
+	require.EqualValues(t, dataproc.MsgSetCodeResponse{
 		CodeIndex: "1",
 	}, *createResponse)
 }
