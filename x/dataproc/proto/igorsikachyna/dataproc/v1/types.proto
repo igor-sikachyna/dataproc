@@ -5,6 +5,7 @@ option go_package = "github.com/igor-sikachyna/dataproc";
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
+import "igorsikachyna/dataproc/v1/system_info.proto";
 
 // Params defines the parameters of the module.
 message Params {}
@@ -13,8 +14,10 @@ message Params {}
 message GenesisState {
   // params defines all the parameters of the module.
   Params params = 1 [ (gogoproto.nullable) = false ];
+  // systemInfo defines internal module state
+  SystemInfo systemInfo = 2 [ (gogoproto.nullable) = false ];
 
-  repeated IndexedStoredCode indexedStoredCodeList = 2 [(gogoproto.nullable) = false];
+  repeated IndexedStoredCode indexedStoredCodeList = 3 [(gogoproto.nullable) = false];
 }
 
 message StoredCode {

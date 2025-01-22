@@ -18,6 +18,10 @@ func (k *Keeper) InitGenesis(ctx context.Context, data *dataproc.GenesisState) e
 		}
 	}
 
+	if err := k.SetSystemInfo(ctx, data.SystemInfo); err != nil {
+		return err
+	}
+
 	return nil
 }
 
