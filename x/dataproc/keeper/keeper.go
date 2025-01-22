@@ -22,6 +22,7 @@ type Keeper struct {
 	// state management
 	Schema      collections.Schema
 	Params      collections.Item[dataproc.Params]
+	SystemInfo  dataproc.SystemInfo
 	StoredCodes collections.Map[string, dataproc.StoredCode]
 }
 
@@ -37,6 +38,7 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		addressCodec: addressCodec,
 		authority:    authority,
 		Params:       collections.NewItem(sb, dataproc.ParamsKey, "params", codec.CollValue[dataproc.Params](cdc)),
+		SystemInfo:   dataproc.SystemInfo{NextId: 0},
 		StoredCodes: collections.NewMap(sb,
 			dataproc.StoredCodesKey, "storedCodes", collections.StringKey,
 			codec.CollValue[dataproc.StoredCode](cdc)),
@@ -55,4 +57,9 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 // GetAuthority returns the module's authority.
 func (k Keeper) GetAuthority() string {
 	return k.authority
+}
+
+// GetSystemInfo returns the module's system information.
+func (k Keeper) GetSystemInfo() dataproc.SystemInfo {
+	return k.SystemInfo
 }

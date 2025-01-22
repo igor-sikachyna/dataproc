@@ -1,0 +1,8 @@
+syntax = "proto3";
+package igorsikachyna.dataproc.v1;
+
+option go_package = "github.com/igor-sikachyna/dataproc";
+
+message SystemInfo {
+  uint64 nextId = 1;
+}
