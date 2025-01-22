@@ -2,11 +2,11 @@ package keeper
 
 import (
 	"context"
-	"errors"
-	"fmt"
+	// "errors"
+	// "fmt"
 	"strconv"
 
-	"cosmossdk.io/collections"
+	// "cosmossdk.io/collections"
 	"github.com/igor-sikachyna/dataproc/x/dataproc"
 )
 
@@ -23,12 +23,12 @@ func NewMsgServerImpl(keeper Keeper) dataproc.MsgServer {
 
 // SetCode defines the handler for the MsgSetCode message.
 func (ms msgServer) SetCode(ctx context.Context, msg *dataproc.MsgSetCode) (*dataproc.MsgSetCodeResponse, error) {
-	if length := len([]byte(msg.Index)); dataproc.MaxIndexLength < length || length < 1 {
-		return nil, dataproc.ErrIndexTooLong
-	}
-	if _, err := ms.k.StoredCodes.Get(ctx, msg.Index); err == nil || errors.Is(err, collections.ErrEncoding) {
-		return nil, fmt.Errorf("code already exists at index: %s", msg.Index)
-	}
+	// if length := len([]byte(msg.Index)); dataproc.MaxIndexLength < length || length < 1 {
+	// 	return nil, dataproc.ErrIndexTooLong
+	// }
+	// if _, err := ms.k.StoredCodes.Get(ctx, msg.Index); err == nil || errors.Is(err, collections.ErrEncoding) {
+	// 	return nil, fmt.Errorf("code already exists at index: %s", msg.Index)
+	// }
 
 	systemInfo, err := ms.k.GetSystemInfo(ctx)
 	if err != nil {

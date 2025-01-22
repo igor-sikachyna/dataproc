@@ -32,7 +32,6 @@ func TestSetCode(t *testing.T) {
 	msgServer, _, context := setupMsgServerSetCode(t)
 	createResponse, err := msgServer.SetCode(context, &dataproc.MsgSetCode{
 		Creator: alice,
-		Index:   "1",
 		Code:    "test",
 	})
 	require.Nil(t, err)
@@ -42,7 +41,6 @@ func TestSetCode(t *testing.T) {
 
 	createResponse, err = msgServer.SetCode(context, &dataproc.MsgSetCode{
 		Creator: alice,
-		Index:   "1",
 		Code:    "test",
 	})
 	require.Nil(t, err)
